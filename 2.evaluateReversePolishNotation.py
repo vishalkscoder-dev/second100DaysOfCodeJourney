@@ -1,0 +1,35 @@
+import subprocess
+subprocess.run('cls', shell=True)
+
+
+def evalRPN(tokens):
+    stack = []
+
+    for token in tokens:
+        if token not in ["+", "-", "*", "/"]:
+            stack.append(int(token))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+        
+            if token == "+":
+                stack.append(a + b)
+
+            elif token == "-":
+                stack.append(a - b)
+
+            elif token == "*":
+                stack.append(a * b)
+
+            elif token == "/":
+                result = abs(a) // abs(b)
+
+                if (a < 0) != (b < 0):
+                    result = -result
+
+                stack.append(result)
+
+    return stack[-1]
+
+tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+print(evalRPN(tokens))
